@@ -54,6 +54,8 @@ public class FactServiceImpl implements FactService {
                 }
             }
             fact.setChildFacts(childFacts);
+        }else {
+
         }
     }
 }

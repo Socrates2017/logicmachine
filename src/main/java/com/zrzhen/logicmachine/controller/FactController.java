@@ -23,4 +23,5 @@ public class FactController {
 
         return ResultGen.genResult(ResultCode.SUCCESS, fact);
     }
+
 }
