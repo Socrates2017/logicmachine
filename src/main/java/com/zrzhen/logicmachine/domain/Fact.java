@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Fact implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * 事实id
