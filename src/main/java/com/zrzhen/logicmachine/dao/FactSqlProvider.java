@@ -17,6 +17,18 @@ public class FactSqlProvider {
             sql.VALUES("atomic_id", "#{atomicId,jdbcType=INTEGER}");
         }
         
+        if (record.getType() != null) {
+            sql.VALUES("`type`", "#{type,jdbcType=SMALLINT}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         return sql.toString();
     }
 
@@ -26,6 +38,18 @@ public class FactSqlProvider {
         
         if (record.getAtomicId() != null) {
             sql.SET("atomic_id = #{atomicId,jdbcType=INTEGER}");
+        }
+        
+        if (record.getType() != null) {
+            sql.SET("`type` = #{type,jdbcType=SMALLINT}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("fact_id = #{factId,jdbcType=INTEGER}");

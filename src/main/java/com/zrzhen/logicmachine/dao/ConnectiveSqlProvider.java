@@ -17,6 +17,14 @@ public class ConnectiveSqlProvider {
             sql.VALUES("`name`", "#{name,jdbcType=VARCHAR}");
         }
         
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         return sql.toString();
     }
 
@@ -26,6 +34,14 @@ public class ConnectiveSqlProvider {
         
         if (record.getName() != null) {
             sql.SET("`name` = #{name,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("code = #{code,jdbcType=VARCHAR}");

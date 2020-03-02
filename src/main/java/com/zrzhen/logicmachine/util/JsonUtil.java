@@ -51,7 +51,7 @@ public class JsonUtil {
      * @param object
      * @return
      */
-    public static String obj2Json(Object object) {
+    public static String entity2Json(Object object) {
         try {
             return getObjectMapper().writeValueAsString(object);
         } catch (JsonProcessingException e) {
@@ -63,7 +63,7 @@ public class JsonUtil {
     /**
      * 将json形式字符串转换为java实体类
      */
-    public static <T> T str2Obj(String jsonStr, Class<T> clazz) {
+    public static <T> T str2Entity(String jsonStr, Class<T> clazz) {
         T readValue = null;
         try {
             readValue = getObjectMapper().readValue(jsonStr, clazz);

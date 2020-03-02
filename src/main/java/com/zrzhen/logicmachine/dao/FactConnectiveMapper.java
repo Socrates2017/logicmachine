@@ -17,9 +17,11 @@ public interface FactConnectiveMapper {
 
     @Insert({
         "insert into `fact_connective` (parent_fact, child_fact, ",
-        "connective)",
+        "connective, create_time, ",
+        "update_time)",
         "values (#{parentFact,jdbcType=INTEGER}, #{childFact,jdbcType=INTEGER}, ",
-        "#{connective,jdbcType=VARCHAR})"
+        "#{connective,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(FactConnective record);
 
@@ -28,7 +30,7 @@ public interface FactConnectiveMapper {
 
     @Select({
         "select",
-        "parent_fact, child_fact, connective",
+        "parent_fact, child_fact, connective, create_time, update_time",
         "from `fact_connective`",
         "where parent_fact = #{parentFact,jdbcType=INTEGER}",
           "and child_fact = #{childFact,jdbcType=INTEGER}"
@@ -36,7 +38,9 @@ public interface FactConnectiveMapper {
     @Results(id = "all", value = {
         @Result(column="parent_fact", property="parentFact", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="child_fact", property="childFact", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="connective", property="connective", jdbcType=JdbcType.VARCHAR)
+        @Result(column="connective", property="connective", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     FactConnective selectByPrimaryKey(FactConnectiveKey key);
 
@@ -45,7 +49,9 @@ public interface FactConnectiveMapper {
 
     @Update({
         "update `fact_connective`",
-        "set connective = #{connective,jdbcType=VARCHAR}",
+        "set connective = #{connective,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where parent_fact = #{parentFact,jdbcType=INTEGER}",
           "and child_fact = #{childFact,jdbcType=INTEGER}"
     })

@@ -1,6 +1,7 @@
 package com.zrzhen.logicmachine.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Customer implements Serializable {
     private Integer customerId;
@@ -10,6 +11,10 @@ public class Customer implements Serializable {
     private Integer age;
 
     private String sex;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +50,22 @@ public class Customer implements Serializable {
         this.sex = sex == null ? null : sex.trim();
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -55,6 +76,8 @@ public class Customer implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", age=").append(age);
         sb.append(", sex=").append(sex);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

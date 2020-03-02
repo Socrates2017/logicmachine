@@ -19,8 +19,10 @@ public interface ConnectiveMapper {
     int deleteByPrimaryKey(String code);
 
     @Insert({
-        "insert into `connective` (code, `name`)",
-        "values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})"
+        "insert into `connective` (code, `name`, ",
+        "create_time, update_time)",
+        "values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(Connective record);
 
@@ -29,13 +31,15 @@ public interface ConnectiveMapper {
 
     @Select({
         "select",
-        "code, `name`",
+        "code, `name`, create_time, update_time",
         "from `connective`",
         "where code = #{code,jdbcType=VARCHAR}"
     })
     @Results({
         @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR, id=true),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR)
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Connective selectByPrimaryKey(String code);
 
@@ -44,7 +48,9 @@ public interface ConnectiveMapper {
 
     @Update({
         "update `connective`",
-        "set `name` = #{name,jdbcType=VARCHAR}",
+        "set `name` = #{name,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where code = #{code,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(Connective record);

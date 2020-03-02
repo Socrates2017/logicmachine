@@ -20,9 +20,11 @@ public interface CustomerMapper {
 
     @Insert({
         "insert into `customer` (customer_id, `name`, ",
-        "age, sex)",
+        "age, sex, create_time, ",
+        "update_time)",
         "values (#{customerId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
-        "#{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR})"
+        "#{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(Customer record);
 
@@ -31,7 +33,7 @@ public interface CustomerMapper {
 
     @Select({
         "select",
-        "customer_id, `name`, age, sex",
+        "customer_id, `name`, age, sex, create_time, update_time",
         "from `customer`",
         "where customer_id = #{customerId,jdbcType=INTEGER}"
     })
@@ -39,7 +41,9 @@ public interface CustomerMapper {
         @Result(column="customer_id", property="customerId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="age", property="age", jdbcType=JdbcType.INTEGER),
-        @Result(column="sex", property="sex", jdbcType=JdbcType.VARCHAR)
+        @Result(column="sex", property="sex", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Customer selectByPrimaryKey(Integer customerId);
 
@@ -50,7 +54,9 @@ public interface CustomerMapper {
         "update `customer`",
         "set `name` = #{name,jdbcType=VARCHAR},",
           "age = #{age,jdbcType=INTEGER},",
-          "sex = #{sex,jdbcType=VARCHAR}",
+          "sex = #{sex,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where customer_id = #{customerId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Customer record);

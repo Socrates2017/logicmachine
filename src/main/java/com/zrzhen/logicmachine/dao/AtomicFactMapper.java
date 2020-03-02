@@ -21,10 +21,12 @@ public interface AtomicFactMapper {
     @Insert({
         "insert into `atomic_fact` (atomic_fact_id, `table_name`, ",
         "`column_name`, `operator`, ",
-        "`value`)",
+        "`value`, create_time, ",
+        "update_time)",
         "values (#{atomicFactId,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, ",
         "#{columnName,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
-        "#{value,jdbcType=VARCHAR})"
+        "#{value,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(AtomicFact record);
 
@@ -33,7 +35,8 @@ public interface AtomicFactMapper {
 
     @Select({
         "select",
-        "atomic_fact_id, `table_name`, `column_name`, `operator`, `value`",
+        "atomic_fact_id, `table_name`, `column_name`, `operator`, `value`, create_time, ",
+        "update_time",
         "from `atomic_fact`",
         "where atomic_fact_id = #{atomicFactId,jdbcType=INTEGER}"
     })
@@ -42,7 +45,9 @@ public interface AtomicFactMapper {
         @Result(column="table_name", property="tableName", jdbcType=JdbcType.VARCHAR),
         @Result(column="column_name", property="columnName", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
-        @Result(column="value", property="value", jdbcType=JdbcType.VARCHAR)
+        @Result(column="value", property="value", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     AtomicFact selectByPrimaryKey(Integer atomicFactId);
 
@@ -54,7 +59,9 @@ public interface AtomicFactMapper {
         "set `table_name` = #{tableName,jdbcType=VARCHAR},",
           "`column_name` = #{columnName,jdbcType=VARCHAR},",
           "`operator` = #{operator,jdbcType=VARCHAR},",
-          "`value` = #{value,jdbcType=VARCHAR}",
+          "`value` = #{value,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where atomic_fact_id = #{atomicFactId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(AtomicFact record);

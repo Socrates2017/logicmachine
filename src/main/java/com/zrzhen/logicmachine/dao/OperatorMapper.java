@@ -19,8 +19,10 @@ public interface OperatorMapper {
     int deleteByPrimaryKey(String code);
 
     @Insert({
-        "insert into `operator` (code, `name`)",
-        "values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})"
+        "insert into `operator` (code, `name`, ",
+        "create_time, update_time)",
+        "values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     int insert(Operator record);
 
@@ -29,13 +31,15 @@ public interface OperatorMapper {
 
     @Select({
         "select",
-        "code, `name`",
+        "code, `name`, create_time, update_time",
         "from `operator`",
         "where code = #{code,jdbcType=VARCHAR}"
     })
     @Results({
         @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR, id=true),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR)
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Operator selectByPrimaryKey(String code);
 
@@ -44,7 +48,9 @@ public interface OperatorMapper {
 
     @Update({
         "update `operator`",
-        "set `name` = #{name,jdbcType=VARCHAR}",
+        "set `name` = #{name,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where code = #{code,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(Operator record);

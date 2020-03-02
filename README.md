@@ -21,40 +21,50 @@ name(customer.customer_id,"张三")，一个二元关系谓词。
 
 存在量词∃
 全称量词∀
-
-值的两种类型：枚举（字符串）、数值
-
-逻辑运算符：
-is（字符串，数字）
-larger(数字)
-less(数字)
-
 ∃customer,customer.customer_id=1&&customer.name="张三"
 
-//属性谓词，名字等于某值
-function nameIs(customer_id,name){
-  var boolean = ∃customer,customer_id=1&&name=name;
-  //select count(1) from customer where customer_id=#{customer_id} and name=#{name}
-  return boolean;
-}
+##值的两种类型
 
-function sexIs(customer_id,sex){
-  var boolean = ∃customer,customer_id=1&&sex=sex;
-  //select count(1) from customer where customer_id=#{customer_id} and sex=#{sex}
-  return boolean;
-}
+|类型      | 说明     | 
+|:--------:|:-----:|
+|枚举（字符串） |不能进行算术计算     | 
+|数值          |可进行算术计算      | 
 
-//年龄大于某值
-function ageLarger(customer_id,age){
-  var boolean = ∃customer,customer_id=customer_id&&customer.age>age;
-  //select count(1) from customer where customer_id=#{customer_id} and age > #{age}
-  return boolean;
-}
+sql中的隐式转换会导致索引失效
 
-function nameIsAndageLarger(customer_id,name,age){
- return nameIs(customer_id,name)&&ageLarger(customer_id,age);
-}
+##原子事实操作符
 
-#规则集
-1的性别是女，sexIs(1,"女")
-1的年龄大于20,ageLarger(1,20)
+|符号      | 含义     | 
+|:--------:|:-----:|
+|<         |小于     | 
+|<=          |小于或等于      | 
+|<>          |不等于      | 
+|=          |等于      | 
+|>         |大于      | 
+|>=         |大于或等于  | 
+|in          |包含于   | 
+|!in          |不包含于   | 
+
+##真值联结符
+|符号      | 含义     | 
+|:--------:|:-----:|
+|AND         |析取     | 
+|NOT          |取反      | 
+|OR          |合取      | 
+|→       |蕴含      | 
+|↔        |等值      | 
+
+
+
+#事实分类
+
+原子事实，其真值从表中获得
+复合事实，由原子事实联结而成的复合事实
+中间事实，复合事实的一种，可以复用来组成其他组合事实
+根事实，中间事实的一种，其值是我们的计算目标
+
+逻辑引擎的功能是从原子事实的真值计算出根事实的真值
+
+
+
+

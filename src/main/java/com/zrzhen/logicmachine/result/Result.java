@@ -51,6 +51,6 @@ public class Result<T> implements BaseResult {
 
     @Override
     public String toString() {
-        return JsonUtil.obj2Json(this);
+        return JsonUtil.entity2Json(this);
     }
 }

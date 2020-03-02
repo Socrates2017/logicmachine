@@ -1,6 +1,7 @@
 package com.zrzhen.logicmachine.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AtomicFact implements Serializable {
     private Integer atomicFactId;
@@ -12,6 +13,10 @@ public class AtomicFact implements Serializable {
     private String operator;
 
     private String value;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -55,6 +60,22 @@ public class AtomicFact implements Serializable {
         this.value = value == null ? null : value.trim();
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -66,6 +87,8 @@ public class AtomicFact implements Serializable {
         sb.append(", columnName=").append(columnName);
         sb.append(", operator=").append(operator);
         sb.append(", value=").append(value);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

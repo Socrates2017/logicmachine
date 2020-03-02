@@ -21,6 +21,14 @@ public class FactConnectiveSqlProvider {
             sql.VALUES("connective", "#{connective,jdbcType=VARCHAR}");
         }
         
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         return sql.toString();
     }
 
@@ -30,6 +38,14 @@ public class FactConnectiveSqlProvider {
         
         if (record.getConnective() != null) {
             sql.SET("connective = #{connective,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("parent_fact = #{parentFact,jdbcType=INTEGER}");
