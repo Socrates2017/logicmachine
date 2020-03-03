@@ -1,11 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>首页</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="哲人镇, 陈安廉, 陈濂, 哲学论坛, java, 人工智能, 机器学习">
+    <meta name="description" content="哲人镇是一个计算机编程、哲学交流论坛">
+    <meta name="Robots" content="all">
+    <title>决策树</title>
+    <link rel="icon" type="image/x-icon" href="/icon/favicon.ico">
+    <link href="/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/public.css?v=2019092701" rel="stylesheet">
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script src="/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-首页
+<div class="container-fluid">
+    <div class="row">
+        <div id="left" class="col-sm-3 col-md-3 col-lg-3" style="padding:0px;">
+            <div>
+                &nbsp;
+                <div style="display: inline;float: right">
+                    <a href="javascript:void(0);" onclick="indentLeft()">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>&emsp;
+                </div>
 
+            </div>
+            <div id="left-scroll" style="padding:0px;overflow-y:scroll;">
+                <div id="root-fact-list"></div>
+            </div>
+        </div>
+        <div id="right" class="col-sm-9 col-md-9 col-lg-9" style="padding:0px;">
+            <div>
+                <div style="display: inline;float: left">
+                    <a href="javascript:void(0);" id="indentRight" onclick="indentRight()">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+                <div style="display: inline;float: left"><span>&emsp;</span></div>
+                <div style="display: inline;float: left">
+                    <a href="javascript:void(0);" id="hideLeft" onclick="hideOrShowLeft()">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                    </a>
+                </div>
+                <div id="new-window-content" style="display: inline;float: right"></div>
+            </div>
+            <div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/jenel.js?v=2019111902"></script>
+<script src='https://d3js.org/d3.v3.min.js'></script>
+<script type="text/javascript" src="/js/index.js?v=2019112702"></script>
 </body>
 </html>

@@ -187,7 +187,7 @@
     注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
  -->
 
-        <table tableName="customer_varible"
+        <table tableName="fact"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

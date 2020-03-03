@@ -12,4 +12,8 @@ public class PageController {
     }
 
 
+    @GetMapping("/factTree/{factId}")
+    public String factTree() {
+        return "factTree";
+    }
 }

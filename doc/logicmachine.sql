@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2020-03-02 17:34:20
+Date: 2020-03-03 18:08:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -110,6 +110,7 @@ CREATE TABLE `customer_varible` (
 DROP TABLE IF EXISTS `fact`;
 CREATE TABLE `fact` (
   `fact_id` int(11) NOT NULL COMMENT '主键',
+  `name` varchar(255) DEFAULT NULL,
   `atomic_id` int(11) DEFAULT '0' COMMENT '为0则不为原子事实，非0则对应到原子事实 表的某个记录',
   `type` smallint(1) DEFAULT '0' COMMENT '事实类型，0为默认普通事实（或原子事实），1为中间事实，2为根事实',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -122,18 +123,18 @@ CREATE TABLE `fact` (
 -- ----------------------------
 -- Records of fact
 -- ----------------------------
-INSERT INTO `fact` VALUES ('1', '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('2', '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('3', '0', '2', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('4', '1', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('5', '2', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('6', '3', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('7', '4', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('8', '4', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('9', '5', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('10', '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('11', '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
-INSERT INTO `fact` VALUES ('12', '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('1', null, '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('2', null, '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('3', '根事实1', '0', '2', '2020-03-02 16:18:13', '2020-03-03 11:45:11');
+INSERT INTO `fact` VALUES ('4', null, '1', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('5', null, '2', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('6', null, '3', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('7', null, '4', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('8', null, '4', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('9', null, '5', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('10', '根事实2', '0', '2', '2020-03-02 16:18:13', '2020-03-03 11:45:20');
+INSERT INTO `fact` VALUES ('11', null, '0', '0', '2020-03-02 16:18:13', '2020-03-02 16:18:13');
+INSERT INTO `fact` VALUES ('12', '中间事实', '0', '1', '2020-03-02 16:18:13', '2020-03-03 11:27:01');
 
 -- ----------------------------
 -- Table structure for fact_connective

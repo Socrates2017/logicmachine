@@ -1,16 +1,19 @@
 package com.zrzhen.logicmachine.controller;
 
+import com.zrzhen.logicmachine.dao.FactMapper;
 import com.zrzhen.logicmachine.domain.Fact;
 import com.zrzhen.logicmachine.result.Result;
 import com.zrzhen.logicmachine.result.ResultCode;
 import com.zrzhen.logicmachine.result.ResultGen;
 import com.zrzhen.logicmachine.service.FactService;
-import com.zrzhen.logicmachine.util.FactUtil;
+import com.zrzhen.logicmachine.util.FactManager;
 import com.zrzhen.logicmachine.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fact")
@@ -21,6 +24,15 @@ public class FactController {
 
     @Autowired
     FactService factService;
+
+    @Autowired
+    FactMapper factMapper;
+
+    @GetMapping("/rootFactList")
+    public Result rootFactList() {
+        List<Fact> rootFactList = factMapper.factListByType(2);
+        return ResultGen.genResult(ResultCode.SUCCESS, rootFactList);
+    }
 
     /**
      * 获取事实树
@@ -36,6 +48,7 @@ public class FactController {
 
     /**
      * 获取事实树并对原子事实进行赋值
+     *
      * @param factId
      * @param customerId
      * @return
@@ -48,13 +61,14 @@ public class FactController {
 
     /**
      * 输入原子事实已被赋值的事实树，计算根事实的真值
+     *
      * @param json
      * @return
      */
     @PostMapping("/calculate")
     public Result calculate(@RequestBody String json) {
         Fact fact = JsonUtil.str2Entity(json, Fact.class);
-        FactUtil.calculateRoot(fact);
+        new FactManager(fact).calculateRoot();
         return ResultGen.genResult(ResultCode.SUCCESS, fact);
     }
 

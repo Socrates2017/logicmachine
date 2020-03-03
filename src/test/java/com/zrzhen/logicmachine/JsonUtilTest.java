@@ -23,7 +23,7 @@ public class JsonUtilTest {
 
         List<Fact> facts = new ArrayList<>();
         facts.add(fact2);
-        fact.setChildFacts(facts);
+        fact.setChildren(facts);
 
         String json = JsonUtil.entity2Json(fact);
         System.out.println(json);

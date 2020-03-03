@@ -9,7 +9,6 @@ import com.zrzhen.logicmachine.domain.AtomicFact;
 import com.zrzhen.logicmachine.domain.Fact;
 import com.zrzhen.logicmachine.domain.FactConnective;
 import com.zrzhen.logicmachine.service.FactService;
-import com.zrzhen.logicmachine.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +70,7 @@ public class FactServiceImpl implements FactService {
                     childFacts.add(childFact);
                 }
             }
-            fact.setChildFacts(childFacts);
+            fact.setChildren(childFacts);
         }
     }
 
@@ -88,7 +87,7 @@ public class FactServiceImpl implements FactService {
                     childFacts.add(childFact);
                 }
             }
-            fact.setChildFacts(childFacts);
+            fact.setChildren(childFacts);
         } else {
             Integer atomicId = fact.getAtomicId();
             byte value = getAtomicValue(atomicId, customerId);

@@ -3,12 +3,13 @@ package com.zrzhen.logicmachine.domain;
 import com.zrzhen.logicmachine.util.JsonUtil;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 public class Fact implements Serializable {
 
     private Short type;
+
+    private String name;
 
     /**
      * 事实id
@@ -23,7 +24,7 @@ public class Fact implements Serializable {
     /**
      * 子节点
      */
-    private List<Fact> childFacts;
+    private List<Fact> children;
 
     /**
      * 子节点的联结符
@@ -35,10 +36,11 @@ public class Fact implements Serializable {
      */
     private byte value;
 
+    /**
+     * 真值计算的顺序
+     */
+    private Integer calculateIndex;
 
-    private Date createTime;
-
-    private Date updateTime;
 
     public Fact() {
     }
@@ -54,12 +56,28 @@ public class Fact implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public List<Fact> getChildFacts() {
-        return childFacts;
+    public String getName() {
+        return name;
     }
 
-    public void setChildFacts(List<Fact> childFacts) {
-        this.childFacts = childFacts;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getCalculateIndex() {
+        return calculateIndex;
+    }
+
+    public void setCalculateIndex(Integer calculateIndex) {
+        this.calculateIndex = calculateIndex;
+    }
+
+    public List<Fact> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Fact> children) {
+        this.children = children;
     }
 
     public String getConnective() {
@@ -100,22 +118,6 @@ public class Fact implements Serializable {
 
     public void setType(Short type) {
         this.type = type;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     @Override
