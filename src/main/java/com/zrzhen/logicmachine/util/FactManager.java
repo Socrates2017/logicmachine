@@ -30,15 +30,6 @@ public class FactManager {
         }
     }
 
-    public void calculateRoot(Fact fact) {
-        while (fact.getValue() == 0) {
-            try {
-                this.calculate(fact);
-            } catch (StopMsgException e) {
-                //仅作流程控制，跳出所有递归，此处可优化
-            }
-        }
-    }
 
     /**
      * 根据倒数第一层的真值计算倒数第二层的真值
