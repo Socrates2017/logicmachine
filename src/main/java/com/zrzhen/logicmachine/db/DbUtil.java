@@ -3,7 +3,7 @@ package com.zrzhen.logicmachine.db;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -65,9 +65,17 @@ public class DbUtil {
      * @throws SQLException
      * @throws SqlNotFormatException
      */
-    public static int operateAutocommit(DbSource db)
-            throws SQLException, SqlNotFormatException {
+    public static int operateAutocommit(DbSource db) {
         return DbOperate.updateAutocommit(db);
+    }
+
+    protected static Integer insertAndGetKey(DbSource db)
+            throws SQLException, SqlNotFormatException {
+        return DbOperate.insertAndGetKey(db);
+    }
+
+    protected static Integer insertAndGetKeyAutocommit(DbSource db) {
+        return DbOperate.insertAndGetKeyAutocommit(db);
     }
 
     /**
