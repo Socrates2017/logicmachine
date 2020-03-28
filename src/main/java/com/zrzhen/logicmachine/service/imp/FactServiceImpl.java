@@ -97,12 +97,13 @@ public class FactServiceImpl implements FactService {
 
     @Override
     public byte getAtomicValue(Integer atomicId, Integer customerId) {
-        AtomicFact atomicFact = atomicFactMapper.selectByPrimaryKey(atomicId);
-        String sql = "SELECT COUNT(1) FROM " + atomicFact.getTableName() +
-                " WHERE customer_id = " + customerId + " AND "
-                + atomicFact.getColumnName() + " " + atomicFact.getOperator() + " '" + atomicFact.getValue() + "'";
-        List<Map<String, Object>> result = godSqlMapper.query(sql);
-        Long count = (Long) result.get(0).get("COUNT(1)");
-        return (byte) (count > 0 ? 1 : -1);
+//        AtomicFact atomicFact = atomicFactMapper.selectByPrimaryKey(atomicId);
+//        String sql = "SELECT COUNT(1) FROM " + atomicFact.getAtomicFactFunction() +
+//                " WHERE customer_id = " + customerId + " AND "
+//                + atomicFact.getParam()+ " " + atomicFact.getOperator() + " '" + atomicFact.getValue() + "'";
+//        List<Map<String, Object>> result = godSqlMapper.query(sql);
+//        Long count = (Long) result.get(0).get("COUNT(1)");
+//        return (byte) (count > 0 ? 1 : -1);
+        return 0;
     }
 }

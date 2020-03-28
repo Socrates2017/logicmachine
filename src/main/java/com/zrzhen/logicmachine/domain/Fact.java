@@ -5,10 +5,19 @@ import com.zrzhen.logicmachine.util.JsonUtil;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 事实类
+ */
 public class Fact implements Serializable {
 
+    /**
+     * 事实类型，0为默认普通事实（或原子事实），1为中间事实，2为根事实
+     */
     private Short type;
 
+    /**
+     * 事实名称
+     */
     private String name;
 
     /**
@@ -32,7 +41,7 @@ public class Fact implements Serializable {
     private String connective;
 
     /**
-     * 真值，0为为判定，-1为假，1为真
+     * 真值，0为未判定，-1为假，1为真
      */
     private byte value;
 

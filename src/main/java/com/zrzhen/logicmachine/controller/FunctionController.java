@@ -39,21 +39,19 @@ public class FunctionController {
         Function function = functionMapper.selectByName(name);
         String path = function.getPath();
 
-        String[] paths =path.split("#");
-        Object result =null;
+        String[] paths = path.split("#");
+        Object result = null;
         try {
-            Class<?> threadClazz =  Class.forName(paths[0]);
-            Method method = threadClazz.getMethod(paths[1], String.class,int.class,int.class);
+            Class<?> threadClazz = Class.forName(paths[0]);
+            Method method = threadClazz.getMethod(paths[1], String.class, int.class, int.class);
             String variable = param.get("variable").asText();
             int num = param.get("num").asInt();
-            Object[] paramValues ={variable,num,customer_id};
+            Object[] paramValues = {variable, num, customer_id};
             result = method.invoke(functionUtil, paramValues);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return ResultGen.genResult(ResultCode.SUCCESS, result);

@@ -13,13 +13,10 @@ public class AtomicFactSqlProvider {
             sql.VALUES("atomic_fact_id", "#{atomicFactId,jdbcType=INTEGER}");
         }
         
-        if (record.getTableName() != null) {
-            sql.VALUES("`table_name`", "#{tableName,jdbcType=VARCHAR}");
+        if (record.getAtomicFactFunction() != null) {
+            sql.VALUES("atomic_fact_function", "#{atomicFactFunction,jdbcType=VARCHAR}");
         }
-        
-        if (record.getColumnName() != null) {
-            sql.VALUES("`column_name`", "#{columnName,jdbcType=VARCHAR}");
-        }
+
         
         if (record.getOperator() != null) {
             sql.VALUES("`operator`", "#{operator,jdbcType=VARCHAR}");
@@ -44,13 +41,10 @@ public class AtomicFactSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("`atomic_fact`");
         
-        if (record.getTableName() != null) {
-            sql.SET("`table_name` = #{tableName,jdbcType=VARCHAR}");
+        if (record.getAtomicFactFunction() != null) {
+            sql.SET("atomic_fact_function = #{atomicFactFunction,jdbcType=VARCHAR}");
         }
-        
-        if (record.getColumnName() != null) {
-            sql.SET("`column_name` = #{columnName,jdbcType=VARCHAR}");
-        }
+
         
         if (record.getOperator() != null) {
             sql.SET("`operator` = #{operator,jdbcType=VARCHAR}");

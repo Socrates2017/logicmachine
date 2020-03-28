@@ -6,7 +6,7 @@ import com.zrzhen.logicmachine.result.Result;
 import com.zrzhen.logicmachine.result.ResultCode;
 import com.zrzhen.logicmachine.result.ResultGen;
 import com.zrzhen.logicmachine.service.FactService;
-import com.zrzhen.logicmachine.util.FactManager;
+import com.zrzhen.logicmachine.rule.FactManager;
 import com.zrzhen.logicmachine.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class AtomicFact implements Serializable {
+
     private Integer atomicFactId;
 
-    private String tableName;
-
-    private String columnName;
+    private String atomicFactFunction;
 
     private String operator;
 
@@ -20,6 +19,11 @@ public class AtomicFact implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+    public AtomicFact(Integer atomicFactId) {
+        this.atomicFactId = atomicFactId;
+    }
+
     public Integer getAtomicFactId() {
         return atomicFactId;
     }
@@ -28,21 +32,14 @@ public class AtomicFact implements Serializable {
         this.atomicFactId = atomicFactId;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getAtomicFactFunction() {
+        return atomicFactFunction;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName == null ? null : tableName.trim();
+    public void setAtomicFactFunction(String atomicFactFunction) {
+        this.atomicFactFunction = atomicFactFunction == null ? null : atomicFactFunction.trim();
     }
 
-    public String getColumnName() {
-        return columnName;
-    }
-
-    public void setColumnName(String columnName) {
-        this.columnName = columnName == null ? null : columnName.trim();
-    }
 
     public String getOperator() {
         return operator;
@@ -76,21 +73,5 @@ public class AtomicFact implements Serializable {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", atomicFactId=").append(atomicFactId);
-        sb.append(", tableName=").append(tableName);
-        sb.append(", columnName=").append(columnName);
-        sb.append(", operator=").append(operator);
-        sb.append(", value=").append(value);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
+
 }

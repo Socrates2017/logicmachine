@@ -1,19 +1,38 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 192.168.103.140
+Source Server         : 192.168.148.61
 Source Server Version : 50722
-Source Host           : 192.168.103.140:3006
-Source Database       : logicmachine
+Source Host           : 192.168.148.61:3306
+Source Database       : lending-riskcontrol-v2
 
 Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2020-03-03 18:08:04
+Date: 2020-03-28 15:44:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for action
+-- ----------------------------
+DROP TABLE IF EXISTS `action`;
+CREATE TABLE `action` (
+  `action_id` int(11) NOT NULL,
+  `method` varchar(255) DEFAULT NULL,
+  `param` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`action_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of action
+-- ----------------------------
+INSERT INTO `action` VALUES ('1', 'setResult', '0');
+INSERT INTO `action` VALUES ('2', 'setResult', '1');
+INSERT INTO `action` VALUES ('3', 'setResult', '2');
+INSERT INTO `action` VALUES ('4', 'setResult', '3');
 
 -- ----------------------------
 -- Table structure for atomic_fact
@@ -21,48 +40,41 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `atomic_fact`;
 CREATE TABLE `atomic_fact` (
   `atomic_fact_id` int(11) NOT NULL COMMENT '主键',
-  `table_name` varchar(255) DEFAULT NULL COMMENT '表名',
-  `column_name` varchar(255) DEFAULT NULL COMMENT '字段名',
+  `atomic_fact_function` varchar(255) DEFAULT NULL COMMENT '方法',
   `operator` varchar(255) DEFAULT NULL COMMENT '原子事实操作符',
-  `value` varchar(255) DEFAULT NULL COMMENT '值',
+  `value` varchar(255) DEFAULT NULL COMMENT '右值',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`atomic_fact_id`) USING BTREE,
-  KEY `fk_op` (`operator`) USING BTREE,
-  CONSTRAINT `fk_op` FOREIGN KEY (`operator`) REFERENCES `operator` (`code`)
+  KEY `fk_op` (`operator`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='原子事实表，一行再加上对应的表行代表一个原子事实，其真值取决于表中的数据';
 
 -- ----------------------------
 -- Records of atomic_fact
 -- ----------------------------
-INSERT INTO `atomic_fact` VALUES ('0', '', '', '=', null, '2020-03-02 16:16:28', '2020-03-02 16:16:28');
-INSERT INTO `atomic_fact` VALUES ('1', 'customer', 'age', '<', '10', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
-INSERT INTO `atomic_fact` VALUES ('2', 'customer', 'sex', '=', '女', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
-INSERT INTO `atomic_fact` VALUES ('3', 'customer', 'age', '=', '20', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
-INSERT INTO `atomic_fact` VALUES ('4', 'customer', 'age', '<>', '30', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
-INSERT INTO `atomic_fact` VALUES ('5', 'customer', 'sex', '=', '男', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
-INSERT INTO `atomic_fact` VALUES ('6', 'customer', 'age', '>', '50', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
+INSERT INTO `atomic_fact` VALUES ('0', '', '=', null, '2020-03-02 16:16:28', '2020-03-02 16:16:28');
+INSERT INTO `atomic_fact` VALUES ('1', 'InstitutionSore', '<', '551', '2020-03-02 16:16:28', '2020-03-12 11:47:06');
+INSERT INTO `atomic_fact` VALUES ('2', 'customer', '=', '女', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
+INSERT INTO `atomic_fact` VALUES ('3', 'customer', '=', '20', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
+INSERT INTO `atomic_fact` VALUES ('4', 'customer', '<>', '30', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
+INSERT INTO `atomic_fact` VALUES ('5', 'customer', '=', '男', '2020-03-02 16:16:28', '2020-03-02 16:16:28');
 
 -- ----------------------------
--- Table structure for connective
+-- Table structure for atomic_fact_param
 -- ----------------------------
-DROP TABLE IF EXISTS `connective`;
-CREATE TABLE `connective` (
-  `code` varchar(255) NOT NULL COMMENT '符号',
-  `name` varchar(255) DEFAULT NULL COMMENT '含义',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='真值联结词';
+DROP TABLE IF EXISTS `atomic_fact_param`;
+CREATE TABLE `atomic_fact_param` (
+  `atomic_fact_id` int(11) NOT NULL COMMENT '原子事实id',
+  `index` smallint(10) NOT NULL COMMENT '参数位置',
+  `name` varchar(255) DEFAULT NULL COMMENT '名字',
+  `value` varchar(255) DEFAULT NULL COMMENT '值',
+  `type` varchar(255) DEFAULT NULL COMMENT '类型',
+  PRIMARY KEY (`atomic_fact_id`,`index`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Records of connective
+-- Records of atomic_fact_param
 -- ----------------------------
-INSERT INTO `connective` VALUES ('AND', '析取', '2020-03-02 16:17:09', '2020-03-02 16:17:09');
-INSERT INTO `connective` VALUES ('NOT', '取反', '2020-03-02 16:17:09', '2020-03-02 16:17:09');
-INSERT INTO `connective` VALUES ('OR', '合取', '2020-03-02 16:17:09', '2020-03-02 16:17:09');
-INSERT INTO `connective` VALUES ('→', '蕴含', '2020-03-02 16:17:09', '2020-03-02 16:17:09');
-INSERT INTO `connective` VALUES ('↔', '等值', '2020-03-02 16:17:09', '2020-03-02 16:17:09');
 
 -- ----------------------------
 -- Table structure for customer
@@ -81,7 +93,6 @@ CREATE TABLE `customer` (
 -- ----------------------------
 -- Records of customer
 -- ----------------------------
-INSERT INTO `customer` VALUES ('1', '张三', '10', '男', '2020-03-02 16:17:44', '2020-03-02 16:17:44');
 INSERT INTO `customer` VALUES ('2', '李四', '20', '女', '2020-03-02 16:17:44', '2020-03-02 16:17:44');
 INSERT INTO `customer` VALUES ('3', '王五', '35', '男', '2020-03-02 16:17:44', '2020-03-02 16:17:44');
 INSERT INTO `customer` VALUES ('4', '陈六', '30', '女', '2020-03-02 16:17:44', '2020-03-02 16:17:44');
@@ -148,10 +159,7 @@ CREATE TABLE `fact_connective` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`parent_fact`,`child_fact`) USING BTREE,
   KEY `connective` (`connective`) USING BTREE,
-  KEY `child_fact` (`child_fact`) USING BTREE,
-  CONSTRAINT `fact_connective_ibfk_1` FOREIGN KEY (`parent_fact`) REFERENCES `fact` (`fact_id`),
-  CONSTRAINT `fact_connective_ibfk_2` FOREIGN KEY (`connective`) REFERENCES `connective` (`code`) ON UPDATE CASCADE,
-  CONSTRAINT `fact_connective_ibfk_3` FOREIGN KEY (`child_fact`) REFERENCES `fact` (`fact_id`)
+  KEY `child_fact` (`child_fact`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='事实关联表，记录事实之间的树形联结结构';
 
 -- ----------------------------
@@ -172,25 +180,82 @@ INSERT INTO `fact_connective` VALUES ('12', '5', 'OR', '2020-03-02 16:18:38', '2
 INSERT INTO `fact_connective` VALUES ('12', '6', 'OR', '2020-03-02 16:18:38', '2020-03-02 16:18:38');
 
 -- ----------------------------
--- Table structure for operator
+-- Table structure for rule
 -- ----------------------------
-DROP TABLE IF EXISTS `operator`;
-CREATE TABLE `operator` (
-  `code` varchar(255) NOT NULL COMMENT '符号',
-  `name` varchar(255) DEFAULT NULL COMMENT '含义',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='原子事实标操作符';
+DROP TABLE IF EXISTS `rule`;
+CREATE TABLE `rule` (
+  `rule_id` int(11) NOT NULL,
+  `fact_id` int(11) DEFAULT NULL,
+  `then_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`rule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Records of operator
+-- Records of rule
 -- ----------------------------
-INSERT INTO `operator` VALUES ('!in', '不在', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('<', '小于', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('<=', '小于或等于', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('<>', '不等于', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('=', '等于', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('>', '大于', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('>=', '大于或等于', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
-INSERT INTO `operator` VALUES ('in', '存在', '2020-03-02 16:19:08', '2020-03-02 16:19:08');
+
+-- ----------------------------
+-- Table structure for rules
+-- ----------------------------
+DROP TABLE IF EXISTS `rules`;
+CREATE TABLE `rules` (
+  `rules_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`rules_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='规则集，若干规则的集合，由若干个rule组成，将作为决策的起点';
+
+-- ----------------------------
+-- Records of rules
+-- ----------------------------
+INSERT INTO `rules` VALUES ('1', '策略1');
+
+-- ----------------------------
+-- Table structure for rules_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `rules_rule`;
+CREATE TABLE `rules_rule` (
+  `rules_id` int(11) DEFAULT NULL,
+  `rule_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='规则集-规则关系表，保存指定规则集下有哪些规则';
+
+-- ----------------------------
+-- Records of rules_rule
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for then
+-- ----------------------------
+DROP TABLE IF EXISTS `then`;
+CREATE TABLE `then` (
+  `then_id` int(11) NOT NULL,
+  `type` tinyint(4) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`then_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of then
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_risk_creditscore
+-- ----------------------------
+DROP TABLE IF EXISTS `t_risk_creditscore`;
+CREATE TABLE `t_risk_creditscore` (
+  `id` varchar(32) NOT NULL COMMENT '主键',
+  `user_id` varchar(32) NOT NULL DEFAULT '' COMMENT '用户 ID',
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT '姓名',
+  `phone` varchar(16) NOT NULL DEFAULT '' COMMENT '手机号',
+  `id_number` varchar(32) NOT NULL DEFAULT '' COMMENT '身份证号',
+  `institution` varchar(16) NOT NULL DEFAULT '' COMMENT '信用评分机构',
+  `score` varchar(8) NOT NULL DEFAULT '' COMMENT '信用评分',
+  `rank` varchar(8) NOT NULL DEFAULT '' COMMENT '信用评级',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `expiration_time` datetime NOT NULL COMMENT '过期时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='风控信用评分';
+
+-- ----------------------------
+-- Records of t_risk_creditscore
+-- ----------------------------
+INSERT INTO `t_risk_creditscore` VALUES ('1', '1', '张三', '125226522', '56655555', 'advance', '600', '', '2020-03-11 11:46:14', '2020-03-12 11:46:10');

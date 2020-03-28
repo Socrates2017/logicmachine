@@ -19,12 +19,12 @@ public interface AtomicFactMapper {
     int deleteByPrimaryKey(Integer atomicFactId);
 
     @Insert({
-        "insert into `atomic_fact` (atomic_fact_id, `table_name`, ",
-        "`column_name`, `operator`, ",
+        "insert into `atomic_fact` (atomic_fact_id, atomic_fact_function, ",
+        "param, `operator`, ",
         "`value`, create_time, ",
         "update_time)",
-        "values (#{atomicFactId,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, ",
-        "#{columnName,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
+        "values (#{atomicFactId,jdbcType=INTEGER}, #{atomicFactFunction,jdbcType=VARCHAR}, ",
+        "#{param,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, ",
         "#{value,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
@@ -35,15 +35,14 @@ public interface AtomicFactMapper {
 
     @Select({
         "select",
-        "atomic_fact_id, `table_name`, `column_name`, `operator`, `value`, create_time, ",
+        "atomic_fact_id, atomic_fact_function, param, `operator`, `value`, create_time, ",
         "update_time",
         "from `atomic_fact`",
         "where atomic_fact_id = #{atomicFactId,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="atomic_fact_id", property="atomicFactId", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="table_name", property="tableName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="column_name", property="columnName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="atomic_fact_function", property="atomicFactFunction", jdbcType=JdbcType.VARCHAR),
         @Result(column="operator", property="operator", jdbcType=JdbcType.VARCHAR),
         @Result(column="value", property="value", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
@@ -56,8 +55,8 @@ public interface AtomicFactMapper {
 
     @Update({
         "update `atomic_fact`",
-        "set `table_name` = #{tableName,jdbcType=VARCHAR},",
-          "`column_name` = #{columnName,jdbcType=VARCHAR},",
+        "set atomic_fact_function = #{atomicFactFunction,jdbcType=VARCHAR},",
+          "param = #{param,jdbcType=VARCHAR},",
           "`operator` = #{operator,jdbcType=VARCHAR},",
           "`value` = #{value,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",

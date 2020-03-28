@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -23,11 +24,6 @@ public class JsonUtil {
 
     private static volatile ObjectMapper objectMapper;
 
-    private static final ObjectMapper SORTED_MAPPER = new ObjectMapper();
-
-    static {
-        SORTED_MAPPER.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-    }
 
     /**
      * 获取单例ObjectMapper
@@ -39,6 +35,10 @@ public class JsonUtil {
             synchronized (JsonUtil.class) {
                 if (objectMapper == null) {
                     objectMapper = new ObjectMapper();
+                    objectMapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+                    objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+//                    objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 }
             }
         }
@@ -118,8 +118,8 @@ public class JsonUtil {
         Object obj;
         String json = null;
         try {
-            obj = SORTED_MAPPER.treeToValue(node, Object.class);
-            json = SORTED_MAPPER.writeValueAsString(obj);
+            obj = objectMapper.treeToValue(node, Object.class);
+            json = objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
         }

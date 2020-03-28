@@ -46,8 +46,8 @@
             <!--userId="root" password="rootLC!20190908"/>-->
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.103.140:3006/logicmachine?useSSL=false"
-                        userId="chenanl" password="123Aa45678@"/>
+                        connectionURL="jdbc:mysql://192.168.148.61:3306/lending-riskcontrol-v2?useSSL=false"
+                        userId="ppx_user" password="JKAX1oBBqTSNZxHCRAP"/>
 
 
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
@@ -187,7 +187,7 @@
     注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
  -->
 
-        <table tableName="fact"
+        <table tableName="atomic_fact_param"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
