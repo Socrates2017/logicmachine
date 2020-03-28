@@ -108,9 +108,9 @@ public class OrmUtil {
         try {
             //如果自动提交
             if (commit) {
-                connection = DbUtil.getConnectionFromPool(db);
+                connection = DbConnect.getConnectionFromPool(db);
             } else {
-                connection = DbUtil.getConnectionAndSetThread(db);
+                connection = DbConnect.getConnectionAndSetThread(db);
             }
 
             Map<String, Object> valueMap = datas.get(0);

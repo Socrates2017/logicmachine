@@ -82,7 +82,7 @@ public class DbSource {
         Connection conn = getConnectionInThread();
         try {
             if (conn == null || conn.isClosed()) {
-                conn = DbUtil.getConnectionFromPool(this);
+                conn = DbConnect.getConnectionFromPool(this);
                 // 以当前线程对象作为key,以conn作为value放到一个HashMap里面
                 THREADLOCAL_CONNECTION.set(conn);
             }
