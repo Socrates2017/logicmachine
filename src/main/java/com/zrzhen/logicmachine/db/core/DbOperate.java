@@ -1,4 +1,4 @@
-package com.zrzhen.logicmachine.db;
+package com.zrzhen.logicmachine.db.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

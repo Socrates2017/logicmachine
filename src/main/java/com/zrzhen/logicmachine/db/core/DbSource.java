@@ -1,4 +1,4 @@
-package com.zrzhen.logicmachine.db;
+package com.zrzhen.logicmachine.db.core;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;

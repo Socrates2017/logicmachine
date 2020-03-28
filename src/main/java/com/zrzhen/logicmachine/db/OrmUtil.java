@@ -1,5 +1,9 @@
 package com.zrzhen.logicmachine.db;
 
+import com.zrzhen.logicmachine.db.core.DbConnect;
+import com.zrzhen.logicmachine.db.core.DbSource;
+import com.zrzhen.logicmachine.db.core.DbUtil;
+import com.zrzhen.logicmachine.db.core.SqlNotFormatException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,17 +105,6 @@ public class OrmUtil {
      * @throws SQLException
      */
     public static int insertAll(DbSource db, String tableName, List<Map<String, Object>> datas, boolean commit) throws SQLException {
-        /**影响的行数**/
-        int affectRowCount = -1;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            //如果自动提交
-            if (commit) {
-                connection = DbConnect.getConnectionFromPool(db);
-            } else {
-                connection = DbConnect.getConnectionAndSetThread(db);
-            }
 
             Map<String, Object> valueMap = datas.get(0);
             /**获取数据库插入的Map的键值对的值**/
@@ -143,35 +136,8 @@ public class OrmUtil {
             sql.append(unknownMarkSql);
             sql.append(" )");
 
-            /**执行SQL预编译**/
-            String sqlStr = sql.toString();
-            preparedStatement = connection.prepareStatement(sqlStr);
-            for (int j = 0; j < datas.size(); j++) {
-                for (int k = 0; k < keys.length; k++) {
-                    preparedStatement.setObject(k + 1, datas.get(j).get(keys[k]));
-                }
-                preparedStatement.addBatch();
-            }
-            int[] arr = preparedStatement.executeBatch();
-            if (commit) {
-                connection.commit();
-            }
-            affectRowCount = arr.length;
-        } catch (Exception e) {
-            if (connection != null && connection.getAutoCommit()) {
-                connection.rollback();
-            }
-            log.error(e.getMessage(), e);
-            throw e;
-        } finally {
-            if (connection != null && connection.getAutoCommit()) {
-                connection.close();
-            }
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-        }
-        return affectRowCount;
+
+        return 0;
     }
 
     /**

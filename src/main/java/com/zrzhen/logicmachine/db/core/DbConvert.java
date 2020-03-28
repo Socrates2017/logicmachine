@@ -1,4 +1,4 @@
-package com.zrzhen.logicmachine.db;
+package com.zrzhen.logicmachine.db.core;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
