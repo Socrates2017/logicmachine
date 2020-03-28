@@ -21,7 +21,7 @@ public class DbUtil {
      *
      * @throws SQLException
      */
-    protected static void begin(DbSource db) throws SQLException {
+    public static void begin(DbSource db) throws SQLException {
         DbConnect.begin(db);
     }
 
@@ -31,14 +31,14 @@ public class DbUtil {
      *
      * @throws SQLException
      */
-    protected static void commit(DbSource db) throws SQLException {
+    public static void commit(DbSource db) throws SQLException {
         DbConnect.commit(db);
     }
 
     /**
      * 回滚一个事务
      */
-    protected static void rollback(DbSource db) {
+    public static void rollback(DbSource db) {
         DbConnect.rollback(db);
     }
 

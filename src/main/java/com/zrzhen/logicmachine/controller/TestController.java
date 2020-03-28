@@ -64,17 +64,17 @@ public class TestController {
         ruleDb.setBindArgs(bindArgs);
         Integer result = null;
         try {
-            result = DbUtil.updateAutocommit(ruleDb);
+            result = DbUtil.update(ruleDb);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (SqlNotFormatException e) {
             e.printStackTrace();
         }
-//        try {
-//            DbUtil.commit(ruleDb);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            DbUtil.commit(ruleDb);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return ResultGen.genResult(ResultCode.SUCCESS, result);
     }
 }
