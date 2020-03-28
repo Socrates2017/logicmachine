@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *
+ * 封装更新、删除、插入等操作
+ */
 public class DbOperate {
 
     private static final Logger log = LoggerFactory.getLogger(DbOperate.class);

@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 转换辅助类
+ */
 public class DbConvert {
     /**
      * 拼接sql语句，不用于执行，仅用于日志

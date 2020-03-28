@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 封装写操作方法
+ * 封装查询方法
  */
 public class DbSelect {
 
