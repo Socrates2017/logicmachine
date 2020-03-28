@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DbUpate {
+public class DbOperate {
 
-    private static final Logger log = LoggerFactory.getLogger(DbUpate.class);
+    private static final Logger log = LoggerFactory.getLogger(DbOperate.class);
 
 
     /**

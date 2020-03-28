@@ -51,9 +51,9 @@ public class DbUtil {
      * @throws SQLException
      * @throws SqlNotFormatException 绑定参数不能为空异常
      */
-    public static int update(DbSource db)
+    public static int operate(DbSource db)
             throws SQLException, SqlNotFormatException {
-        return DbUpate.update(db);
+        return DbOperate.update(db);
     }
 
 
@@ -65,9 +65,9 @@ public class DbUtil {
      * @throws SQLException
      * @throws SqlNotFormatException
      */
-    public static int updateAutocommit(DbSource db)
+    public static int operateAutocommit(DbSource db)
             throws SQLException, SqlNotFormatException {
-        return DbUpate.updateAutocommit(db);
+        return DbOperate.updateAutocommit(db);
     }
 
     /**

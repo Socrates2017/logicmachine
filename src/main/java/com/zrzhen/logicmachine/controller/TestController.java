@@ -64,7 +64,7 @@ public class TestController {
         ruleDb.setBindArgs(bindArgs);
         Integer result = null;
         try {
-            result = DbUtil.update(ruleDb);
+            result = DbUtil.operate(ruleDb);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (SqlNotFormatException e) {

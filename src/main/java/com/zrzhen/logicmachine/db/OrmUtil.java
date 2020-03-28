@@ -54,7 +54,7 @@ public class OrmUtil {
         sql.append(" )");
         db.setSql(sql.toString());
         db.setBindArgs(bindArgs);
-        return DbUtil.update(db);
+        return DbUtil.operate(db);
     }
 
     public static int insertAndGetKey(DbSource db, String tableName, Map<String, Object> valueMap, boolean commit)
@@ -88,7 +88,7 @@ public class OrmUtil {
         sql.append(" )  VALUES (");
         sql.append(unknownMarkSql);
         sql.append(" )");
-        return DbUtil.update(db);
+        return DbUtil.operate(db);
     }
 
     /**
@@ -225,7 +225,7 @@ public class OrmUtil {
         Object[] bindArgs = objects.toArray();
         db.setSql(sql.toString());
         db.setBindArgs(bindArgs);
-        return DbUtil.update(db);
+        return DbUtil.operate(db);
     }
 
     /**
@@ -264,6 +264,6 @@ public class OrmUtil {
         }
         db.setSql(sql.toString());
         db.setBindArgs(bindArgs);
-        return DbUtil.update(db);
+        return DbUtil.operate(db);
     }
 }
