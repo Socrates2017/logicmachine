@@ -108,6 +108,11 @@ public class DbConstant {
         DbConstant.dbRiskMaxWait = dbRiskMaxWait;
     }
 
+    @Value("${DbSource.rule.url}")
+    public void setDbRuleUrl(String dbRuleUrl) {
+        DbConstant.dbRuleUrl = dbRuleUrl;
+    }
+
     @Value("${DbSource.rule.user}")
     public void setDbRuleUser(String dbRuleUser) {
         DbConstant.dbRuleUser = dbRuleUser;

@@ -1,7 +1,10 @@
 package com.zrzhen.logicmachine.controller;
 
 import com.zrzhen.logicmachine.dao.FactMapper;
-import com.zrzhen.logicmachine.domain.Fact;
+import com.zrzhen.logicmachine.db.DbEnum;
+import com.zrzhen.logicmachine.db.DbSource;
+import com.zrzhen.logicmachine.db.DbUtil;
+import com.zrzhen.logicmachine.db.SqlNotFormatException;
 import com.zrzhen.logicmachine.result.Result;
 import com.zrzhen.logicmachine.result.ResultCode;
 import com.zrzhen.logicmachine.result.ResultGen;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/test")
@@ -28,9 +33,48 @@ public class TestController {
     @Autowired
     FactMapper factMapper;
 
-    @GetMapping("/rootFactList")
-    public Result rootFactList() {
-        List<Fact> rootFactList = factMapper.factListByType(2);
-        return ResultGen.genResult(ResultCode.SUCCESS, rootFactList);
+    @GetMapping("/query")
+    public Result query() {
+
+        DbSource ruleDb = DbEnum.RULE.getDb();
+
+        String sql = "SELECT\n" +
+                "\t*\n" +
+                "FROM\n" +
+                "\tatomic_fact\n" +
+                "LIMIT ?;";
+        Object[] bindArgs = new Object[]{5};
+        ruleDb.setSql(sql);
+        ruleDb.setBindArgs(bindArgs);
+        List<Map<String, Object>> result = DbUtil.query(ruleDb);
+        return ResultGen.genResult(ResultCode.SUCCESS, result);
+    }
+
+    @GetMapping("/update")
+    public Result update() {
+
+        DbSource ruleDb = DbEnum.RULE.getDb();
+
+        String sql = "UPDATE atomic_fact\n" +
+                "SET `value` = ?\n" +
+                "WHERE\n" +
+                "\tatomic_fact_id = ?";
+        Object[] bindArgs = new Object[]{2, 1};
+        ruleDb.setSql(sql);
+        ruleDb.setBindArgs(bindArgs);
+        Integer result = null;
+        try {
+            result = DbUtil.updateAutocommit(ruleDb);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (SqlNotFormatException e) {
+            e.printStackTrace();
+        }
+//        try {
+//            DbUtil.commit(ruleDb);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        return ResultGen.genResult(ResultCode.SUCCESS, result);
     }
 }
