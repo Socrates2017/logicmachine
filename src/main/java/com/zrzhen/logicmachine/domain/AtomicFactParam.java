@@ -2,7 +2,12 @@ package com.zrzhen.logicmachine.domain;
 
 import java.io.Serializable;
 
-public class AtomicFactParam extends AtomicFactParamKey implements Serializable {
+public class AtomicFactParam implements Serializable {
+
+    private Integer atomicFactId;
+
+    private Short index;
+
     private String name;
 
     private String value;
@@ -11,12 +16,32 @@ public class AtomicFactParam extends AtomicFactParamKey implements Serializable 
 
     private static final long serialVersionUID = 1L;
 
+
+    public AtomicFactParam() {
+    }
+
+    public Integer getAtomicFactId() {
+        return atomicFactId;
+    }
+
+    public void setAtomicFactId(Integer atomicFactId) {
+        this.atomicFactId = atomicFactId;
+    }
+
+    public Short getIndex() {
+        return index;
+    }
+
+    public void setIndex(Short index) {
+        this.index = index;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getValue() {
@@ -24,7 +49,7 @@ public class AtomicFactParam extends AtomicFactParamKey implements Serializable 
     }
 
     public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+        this.value = value;
     }
 
     public String getType() {
@@ -32,20 +57,10 @@ public class AtomicFactParam extends AtomicFactParamKey implements Serializable 
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", name=").append(name);
-        sb.append(", value=").append(value);
-        sb.append(", type=").append(type);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

@@ -1,0 +1,6 @@
+INSERT INTO `action` (id,`type`,`result`,create_time,update_time) VALUES
+(2674723699818496,1,'RiskRefuse','2020-04-23 18:28:24','2020-04-23 18:28:24')
+,(40106193401675776,0,'RiskConfirm',NULL,NULL)
+,(40106413745242112,0,'RiskRefuse',NULL,NULL)
+,(40108707622682624,1,NULL,NULL,NULL)
+;

@@ -9,36 +9,55 @@ import com.zrzhen.logicmachine.util.JsonUtil;
  * @author chenanlian
  */
 public class Result<T> implements BaseResult {
-    private int status;
-    private String message;
+    private String code;
+    private String msg;
     private T data;
 
 
     public Result(ResultCode resultCode) {
-        this.status = resultCode.getCode();
-        this.message = resultCode.getMessage();
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMessage();
     }
 
     public Result(ResultCode resultCode, T data) {
-        this.status = resultCode.getCode();
-        this.message = resultCode.getMessage();
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMessage();
         this.data = data;
     }
 
-    public int getStatus() {
-        return status;
+
+    public static Result buildSuccess() {
+        return new Result(ResultCode.SUCCESS);
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public static <T> Result<T> buildSuccess(T data) {
+        return new Result(ResultCode.SUCCESS, data);
     }
 
-    public String getMessage() {
-        return message;
+
+    public static Result build(ResultCode resultCode) {
+        return new Result(resultCode);
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public static <T> Result<T> build(ResultCode resultCode, T data) {
+        return new Result(resultCode, data);
+    }
+
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {

@@ -1,0 +1,3 @@
+INSERT INTO rules (id,name) VALUES
+(40111805225238528,'策略1.0.1')
+;

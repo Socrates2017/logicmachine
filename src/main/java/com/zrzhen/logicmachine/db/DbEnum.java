@@ -1,6 +1,6 @@
 package com.zrzhen.logicmachine.db;
 
-import com.zrzhen.logicmachine.db.core.DbSource;
+import com.zrzhen.logicmachine.zatis.DbSource;
 
 /**
  * 数据源枚举
@@ -27,7 +27,7 @@ public enum DbEnum {
             DbConstant.dbRiskMinIdle,
             DbConstant.dbRiskMaxWait
     )),
-    RULE("rule", new DbSource("com.mysql.cj.jdbc.Driver",
+    RULE("domain", new DbSource("com.mysql.cj.jdbc.Driver",
             DbConstant.dbRuleUrl,
             DbConstant.dbRuleUser,
             DbConstant.dbRulePassword,
@@ -36,11 +36,6 @@ public enum DbEnum {
             DbConstant.dbRuleMaxActive,
             DbConstant.dbRuleMinIdle,
             DbConstant.dbRuleMaxWait
-    )),
-    MARKET_WITHOUT_POOL("market", new DbSource("com.mysql.cj.jdbc.Driver",
-            DbConstant.dbMarketUrl,
-            DbConstant.dbMarketUser,
-            DbConstant.dbMarketPassword
     ));
 
     private String name;

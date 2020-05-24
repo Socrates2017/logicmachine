@@ -1,35 +1,52 @@
 package com.zrzhen.logicmachine.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zrzhen.logicmachine.zatis.anno.Column;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+
 public class AtomicFact implements Serializable {
 
-    private Integer atomicFactId;
 
+    private Long id;
+
+    @NotNull
+    @Column(name = "atomic_fact_function")
+    @JsonProperty("atomic_fact_function")
     private String atomicFactFunction;
 
+    @NotNull
     private String operator;
 
+    @NotNull
     private String value;
 
+    @Column(name = "create_time")
+    @JsonProperty("create_time")
     private Date createTime;
 
+    @Column(name = "update_time")
+    @JsonProperty("update_time")
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
-
-    public AtomicFact(Integer atomicFactId) {
-        this.atomicFactId = atomicFactId;
+    public AtomicFact() {
     }
 
-    public Integer getAtomicFactId() {
-        return atomicFactId;
+    public AtomicFact(Long id) {
+        this.id = id;
     }
 
-    public void setAtomicFactId(Integer atomicFactId) {
-        this.atomicFactId = atomicFactId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAtomicFactFunction() {
@@ -37,16 +54,15 @@ public class AtomicFact implements Serializable {
     }
 
     public void setAtomicFactFunction(String atomicFactFunction) {
-        this.atomicFactFunction = atomicFactFunction == null ? null : atomicFactFunction.trim();
+        this.atomicFactFunction = atomicFactFunction;
     }
-
 
     public String getOperator() {
         return operator;
     }
 
     public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
+        this.operator = operator;
     }
 
     public String getValue() {
@@ -54,7 +70,7 @@ public class AtomicFact implements Serializable {
     }
 
     public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+        this.value = value;
     }
 
     public Date getCreateTime() {
@@ -72,6 +88,4 @@ public class AtomicFact implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-
 }

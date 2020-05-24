@@ -9,28 +9,33 @@ import com.zrzhen.logicmachine.util.JsonUtil;
  * @author chenanlian
  */
 public class FailResult implements BaseResult {
-    private int status;
-    private String message;
+    private String code;
+    private String msg;
 
     public FailResult(ResultCode resultCode) {
-        this.status = resultCode.getCode();
-        this.message = resultCode.getMessage();
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMessage();
     }
 
-    public int getStatus() {
-        return status;
+    public static FailResult build(ResultCode resultCode) {
+        return new FailResult(resultCode);
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+
+    public String getCode() {
+        return code;
     }
 
-    public String getMessage() {
-        return message;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     @Override

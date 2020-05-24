@@ -1,6 +1,8 @@
 package com.zrzhen.logicmachine.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zrzhen.logicmachine.util.JsonUtil;
+import com.zrzhen.logicmachine.zatis.anno.Column;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +15,7 @@ public class Fact implements Serializable {
     /**
      * 事实类型，0为默认普通事实（或原子事实），1为中间事实，2为根事实
      */
-    private Short type;
+    private Integer type;
 
     /**
      * 事实名称
@@ -23,12 +25,14 @@ public class Fact implements Serializable {
     /**
      * 事实id
      */
-    private Integer factId;
+    private Long id;
 
     /**
      * 对应的原子事实id，如果为0则表示为非原子事实
      */
-    private Integer atomicId;
+    @JsonProperty("atomic_id")
+    @Column(name = "atomic_id")
+    private Long atomicId;
 
     /**
      * 子节点
@@ -43,23 +47,24 @@ public class Fact implements Serializable {
     /**
      * 真值，0为未判定，-1为假，1为真
      */
-    private byte value;
+    private Integer value = 0;
 
     /**
      * 真值计算的顺序
      */
+    @JsonProperty("calculate_index")
     private Integer calculateIndex;
 
 
     public Fact() {
     }
 
-    public Fact(Integer factId) {
-        this.factId = factId;
+    public Fact(Long id) {
+        this.id = id;
     }
 
-    public Fact(Integer factId, Integer atomicId) {
-        this.factId = factId;
+    public Fact(Long id, Long atomicId) {
+        this.id = id;
         this.atomicId = atomicId;
     }
 
@@ -97,35 +102,35 @@ public class Fact implements Serializable {
         this.connective = connective;
     }
 
-    public byte getValue() {
+    public Integer getValue() {
         return value;
     }
 
-    public void setValue(byte value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 
-    public Integer getFactId() {
-        return factId;
+    public Long getId() {
+        return id;
     }
 
-    public void setFactId(Integer factId) {
-        this.factId = factId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Integer getAtomicId() {
+    public Long getAtomicId() {
         return atomicId;
     }
 
-    public void setAtomicId(Integer atomicId) {
+    public void setAtomicId(Long atomicId) {
         this.atomicId = atomicId;
     }
 
-    public Short getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Short type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

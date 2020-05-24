@@ -13,12 +13,12 @@ public class JsonUtilTest {
     @Test
     public void fact() {
 
-        Fact fact = new Fact(1);
-        fact.setAtomicId(2);
+        Fact fact = new Fact((long) 1);
+        fact.setAtomicId((long) 2);
         fact.setConnective("AND");
 
-        Fact fact2 = new Fact(23);
-        fact2.setAtomicId(2);
+        Fact fact2 = new Fact((long) 23);
+        fact2.setAtomicId((long) 2);
         fact2.setConnective("AND");
 
         List<Fact> facts = new ArrayList<>();

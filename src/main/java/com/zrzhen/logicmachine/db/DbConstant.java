@@ -19,23 +19,6 @@ public class DbConstant {
     public static Integer dbMarketMinIdle;
     public static Integer dbMarketMaxWait;
 
-    public static String dbRiskUrl;
-    public static String dbRiskUser;
-    public static String dbRiskPassword;
-
-    public static Integer dbRiskInitialSize;
-    public static Integer dbRiskMaxActive;
-    public static Integer dbRiskMinIdle;
-    public static Integer dbRiskMaxWait;
-
-    public static String dbRuleUrl;
-    public static String dbRuleUser;
-    public static String dbRulePassword;
-
-    public static Integer dbRuleInitialSize;
-    public static Integer dbRuleMaxActive;
-    public static Integer dbRuleMinIdle;
-    public static Integer dbRuleMaxWait;
 
     @Value("${DbSource.market.url}")
     public void setDbMarketUrl(String dbMarketUrl) {
@@ -73,6 +56,17 @@ public class DbConstant {
     }
 
 
+
+    public static String dbRiskUrl;
+    public static String dbRiskUser;
+    public static String dbRiskPassword;
+
+    public static Integer dbRiskInitialSize;
+    public static Integer dbRiskMaxActive;
+    public static Integer dbRiskMinIdle;
+    public static Integer dbRiskMaxWait;
+
+
     @Value("${DbSource.risk.url}")
     public void setDbRiskUrl(String dbRiskUrl) {
         DbConstant.dbRiskUrl = dbRiskUrl;
@@ -108,8 +102,17 @@ public class DbConstant {
         DbConstant.dbRiskMaxWait = dbRiskMaxWait;
     }
 
+    public static String dbRuleUrl;
+    public static String dbRuleUser;
+    public static String dbRulePassword;
+
+    public static Integer dbRuleInitialSize;
+    public static Integer dbRuleMaxActive;
+    public static Integer dbRuleMinIdle;
+    public static Integer dbRuleMaxWait;
+
     @Value("${DbSource.rule.url}")
-    public void setDbRuleUrl(String dbRuleUrl) {
+    public void setDbRulekUrl(String dbRuleUrl) {
         DbConstant.dbRuleUrl = dbRuleUrl;
     }
 

@@ -1,19 +1,17 @@
 package com.zrzhen.logicmachine.controller;
 
-import com.zrzhen.logicmachine.dao.FactMapper;
+import com.zrzhen.logicmachine.dao.FactDao;
 import com.zrzhen.logicmachine.domain.Fact;
+import com.zrzhen.logicmachine.domain.FactManager;
 import com.zrzhen.logicmachine.result.Result;
 import com.zrzhen.logicmachine.result.ResultCode;
-import com.zrzhen.logicmachine.result.ResultGen;
 import com.zrzhen.logicmachine.service.FactService;
-import com.zrzhen.logicmachine.rule.FactManager;
 import com.zrzhen.logicmachine.util.JsonUtil;
+import com.zrzhen.logicmachine.util.idmaker.IdUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/fact")
@@ -25,14 +23,30 @@ public class FactController {
     @Autowired
     FactService factService;
 
-    @Autowired
-    FactMapper factMapper;
+    /**
+     * @return
+     */
+    @PutMapping
+    public Result put(@RequestBody Fact fact) {
 
-    @GetMapping("/rootFactList")
-    public Result rootFactList() {
-        List<Fact> rootFactList = factMapper.factListByType(2);
-        return ResultGen.genResult(ResultCode.SUCCESS, rootFactList);
+        if (fact.getType() == 0) {
+            int count = FactDao.countByActomicId(fact.getAtomicId());
+            if (count > 0) {
+                return Result.build(ResultCode.FACT_EXIST);
+            }
+        }
+        fact.setId(IdUtil.genId());
+        FactDao.insert(fact);
+
+        return Result.buildSuccess(fact);
     }
+
+    @GetMapping
+    public Result get(Long id) {
+        Fact fact = FactDao.getById(id);
+        return Result.buildSuccess(fact);
+    }
+
 
     /**
      * 获取事实树
@@ -41,22 +55,9 @@ public class FactController {
      * @return
      */
     @GetMapping("/tree/{factId}")
-    public Result tree(@PathVariable Integer factId) {
+    public Result tree(@PathVariable Long factId) {
         Fact fact = factService.getFactTree(factId);
-        return ResultGen.genResult(ResultCode.SUCCESS, fact);
-    }
-
-    /**
-     * 获取事实树并对原子事实进行赋值
-     *
-     * @param factId
-     * @param customerId
-     * @return
-     */
-    @GetMapping("/treeSetAtomicValue/{factId}")
-    public Result treeSetAtomicValue(@PathVariable Integer factId, @RequestParam Integer customerId) {
-        Fact fact = factService.getFactTreeAndSetAtomicValue(factId, customerId);
-        return ResultGen.genResult(ResultCode.SUCCESS, fact);
+        return Result.buildSuccess(fact);
     }
 
     /**
@@ -68,8 +69,8 @@ public class FactController {
     @PostMapping("/calculate")
     public Result calculate(@RequestBody String json) {
         Fact fact = JsonUtil.str2Entity(json, Fact.class);
-        new FactManager(fact).calculateRoot();
-        return ResultGen.genResult(ResultCode.SUCCESS, fact);
+        new FactManager(fact, "dd").calculateRoot();
+        return Result.buildSuccess(fact);
     }
 
 

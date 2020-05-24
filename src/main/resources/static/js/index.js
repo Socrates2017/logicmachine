@@ -1,4 +1,3 @@
-
 /**
  * 缩小右边栏
  */
@@ -27,7 +26,7 @@ function indentRight() {
     $("#left").addClass(leftClassNew)
     $("#right").removeClass(rightClassOld);
     $("#right").addClass(rightClassNew)
-    changeCanvas()
+
 
 }
 
@@ -58,7 +57,7 @@ function indentLeft() {
     $("#left").addClass(leftClassNew)
     $("#right").removeClass(rightClassOld);
     $("#right").addClass(rightClassNew)
-    changeCanvas()
+
 
 }
 
@@ -83,7 +82,7 @@ function hideLeft() {
     $("#right").addClass('col-sm-12 col-md-12 col-lg-12')
 
     $("#indentRight").hide()
-    changeCanvas()
+
 }
 
 
@@ -131,48 +130,28 @@ function hideOrShowLeft() {
  */
 function getRootFactList() {
     $.ajax({
-        url: "/fact/rootFactList",
+        url: "/enum/atomicfactFunList",
         type: "GET",
         datatype: "json",
         async: true,
         success: function (result) {
-            var status = result.status;
+            var status = result.code;
 
             if (status == 1) {
                 var data = result.data;
-                var html = '<ul class="" >';
-                for (var i in data) {
-                    var fact = data[i];
-                    html += '<li id="li-' + fact.factId + '" class=""  style="margin-top:20px;" >';
-                    html += '&emsp;<a href="javascript:void(0);" onclick="getFactTree(' + fact.factId + ')"><span id="name-' + fact.factId + '">' + fact.name + '</span></a>';
-
-                    html += '<div id="index_' + fact.factId + '" style="padding-left:20px;" ></div>';
+                var atomicFactFunctioList =data['atomicFactFunctioList'];
+                var atomicfactFunSelect = document.getElementById("atomic_fact_function");
+                for (var i in atomicFactFunctioList) {
+                    var atomicfactFunName = atomicFactFunctioList[i];
+                    atomicfactFunSelect.options.add(new Option(atomicfactFunName, atomicfactFunName))
                 }
-                html += '</ul>'
-                $("#root-fact-list").html(html);
 
-            } else {
-                console.log(result.message)
-            }
-        }
-    });
-}
-
-function getFactTree(factId) {
-    $.ajax({
-        url: "/fact/tree/"+factId,
-        type: "GET",
-        datatype: "json",
-        async: true,
-        success: function (result) {
-            var status = result.status;
-
-            if (status == 1) {
-                var data = result.data;
-
-
-                var html = '<ul class="" >';
-
+                var operatorList =data['operatorList'];
+                var operatorSelect = document.getElementById("operator");
+                for (var i in operatorList) {
+                    var operator = operatorList[i];
+                    operatorSelect.options.add(new Option(operator, operator))
+                }
 
 
             } else {
@@ -180,18 +159,13 @@ function getFactTree(factId) {
             }
         }
     });
-
 }
-
-
-
 
 
 
 $(function () {
     $("#left-scroll").height(document.documentElement.clientHeight - 30);
     getRootFactList()
-
 
 
 });

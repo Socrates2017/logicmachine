@@ -3,7 +3,6 @@ package com.zrzhen.logicmachine.handler;
 
 import com.zrzhen.logicmachine.result.FailResult;
 import com.zrzhen.logicmachine.result.ResultCode;
-import com.zrzhen.logicmachine.result.ResultGen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
@@ -33,7 +32,7 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(DataServiceException.class)
     public FailResult DataServiceException(DataServiceException e) {
         log.error("DataServiceException:", e);
-        return ResultGen.genFailResult(e.getResultCode());
+        return FailResult.build(e.getResultCode());
     }
 
     /**
@@ -42,7 +41,7 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(RuntimeException.class)
     public FailResult runtimeExceptionHandler(RuntimeException e) {
         log.error("RuntimeException:", e);
-        return ResultGen.genFailResult(ResultCode.HTTP_RUNTIME_EXCEPTION);
+        return FailResult.build(ResultCode.HTTP_RUNTIME_EXCEPTION);
     }
 
     /**
@@ -54,40 +53,43 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public FailResult jsonParseException(HttpMessageNotReadableException e) {
         log.error("HttpMessageNotReadableException:", e);
-        return ResultGen.genFailResult(ResultCode.HTTP_MESSAGE_NOT_READABLE);
+        return FailResult.build(ResultCode.HTTP_MESSAGE_NOT_READABLE);
     }
 
     /**
      * 参数类型不匹配异常
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(TypeMismatchException.class)
     public FailResult typeMismatchException(TypeMismatchException e) {
         log.error("MethodArgumentNotValidException:", e);
-        return ResultGen.genFailResult(ResultCode.TYPE_MISMATCH_EXCEPTION);
+        return FailResult.build(ResultCode.TYPE_MISMATCH_EXCEPTION);
     }
 
     /**
      * 参数无效异常，如json请求违法约束
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public FailResult methodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException:", e);
-        return ResultGen.genFailResult(ResultCode.METHOD_ARGUMENT_NOT_VALID);
+        return FailResult.build(ResultCode.METHOD_ARGUMENT_NOT_VALID);
     }
 
     /**
      * 参数缺失异常
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public FailResult missingServletRequestParameterException(MissingServletRequestParameterException e) {
         log.error("MethodArgumentNotValidException:", e);
-        return ResultGen.genFailResult(ResultCode.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION);
+        return FailResult.build(ResultCode.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION);
     }
 
 
@@ -100,7 +102,7 @@ public class ApiExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public FailResult exceptionHandler(Exception e) {
         log.error("Unknown exception happened:", e);
-        return ResultGen.genFailResult(ResultCode.FAIL);
+        return FailResult.build(ResultCode.FAIL);
     }
 
 }

@@ -3,7 +3,11 @@ package com.zrzhen.logicmachine.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class FactConnective extends FactConnectiveKey implements Serializable {
+public class FactConnective implements Serializable {
+    private Long parentFact;
+
+    private Long childFact;
+
     private String connective;
 
     private Date createTime;
@@ -12,12 +16,31 @@ public class FactConnective extends FactConnectiveKey implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public FactConnective() {
+    }
+
+    public Long getParentFact() {
+        return parentFact;
+    }
+
+    public void setParentFact(Long parentFact) {
+        this.parentFact = parentFact;
+    }
+
+    public Long getChildFact() {
+        return childFact;
+    }
+
+    public void setChildFact(Long childFact) {
+        this.childFact = childFact;
+    }
+
     public String getConnective() {
         return connective;
     }
 
     public void setConnective(String connective) {
-        this.connective = connective == null ? null : connective.trim();
+        this.connective = connective;
     }
 
     public Date getCreateTime() {
@@ -34,19 +57,5 @@ public class FactConnective extends FactConnectiveKey implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", connective=").append(connective);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
     }
 }
