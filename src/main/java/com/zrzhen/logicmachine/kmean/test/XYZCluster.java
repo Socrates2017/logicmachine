@@ -53,7 +53,7 @@ public class XYZCluster extends KMeansBase<XYZPoint> {
         int K = 10;
         int maxTimes = 10;
         int dataSetSize = 20000;
-        int pointR = 5;
+        int pointR = 10;
 
         XYZCluster xyCluster = new XYZCluster();
         xyCluster.setK(K);

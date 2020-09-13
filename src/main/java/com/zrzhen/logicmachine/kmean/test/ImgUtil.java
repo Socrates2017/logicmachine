@@ -43,7 +43,7 @@ public class ImgUtil {
                 int y = getValue(xYZPoint, d2);
 
                 //graphics.drawOval(x, y, pointR, pointR);
-                graphics.fillOval(x, y, pointR, pointR);
+                graphics.drawOval(x, y, pointR, pointR);
             }
         }
 
