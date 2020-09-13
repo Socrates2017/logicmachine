@@ -42,9 +42,9 @@ public class XYCluster extends KMeansBase<XYPoint> {
 
         int width = 600;
         int height = 400;
-        int K = 15;
+        int K = 10;
         int maxTimes = 10;
-        int dataSetSize = 1000000;
+        int dataSetSize = 20000;
         int pointR = 5;
 
         XYCluster xyCluster = new XYCluster();
