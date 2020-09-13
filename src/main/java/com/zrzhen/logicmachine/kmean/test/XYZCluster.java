@@ -51,7 +51,7 @@ public class XYZCluster extends KMeansBase<XYZPoint> {
         int zWidth = 600;
 
         int K = 10;
-        int maxTimes = 10;
+        int maxTimes = 100;
         int dataSetSize = 20000;
         int pointR = 10;
 
