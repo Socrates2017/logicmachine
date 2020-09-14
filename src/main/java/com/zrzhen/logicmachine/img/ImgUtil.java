@@ -1,5 +1,10 @@
 package com.zrzhen.logicmachine.img;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 public class ImgUtil {
 
     public static int[] handleByCommon(int[] inPixelsData, int srcW, int srcH, int destW, int destH) {
@@ -76,6 +81,55 @@ public class ImgUtil {
         return oneDPix;
     }
 
+    private static int WHITE = new Color(255, 255, 255).getRGB();
+    private static int BLACK = new Color(0, 0, 0).getRGB();
+    /**
+     * 文件转 int[]数组
+     * @param file
+     * @return
+     */
+    public static int[] fileToIntArray(File file){
+        try {
+            BufferedImage image = ImageIO.read(file);
+            int width = image.getWidth();
+            int height = image.getHeight();
+            return bufferedImageToIntArray(image, width, height);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /**
+     * BufferedImage转 int[]数组
+     * @param
+     * @return
+     */
+    public static int[] bufferedImageToIntArray(BufferedImage image, int width, int height){
+        try {
+            int rgb = 0;
+            int[] data = new int[width * height];
+            // 方式一：通过getRGB()方式获得像素数组
+            // 此方式为沿Height方向扫描
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    rgb = image.getRGB(i, j);
+                    if(rgb == -1){
+                        //白色
+                        data[i + j * width] = WHITE;
+                    } else {
+                        //黑色
+                        data[i + j * width] = BLACK;
+                    }
+                    //System.out.print(data[i + j * width]+" ");
+                }
+                //System.out.println();
+            }
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
 
